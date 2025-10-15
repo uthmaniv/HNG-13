@@ -8,15 +8,13 @@ app = Flask(__name__)
 
 @app.route('/me', methods=['GET'])
 def get_profile():
-    # Fetch random cat fact from external API
     try:
         response = requests.get('https://catfact.ninja/fact', timeout=5)
-        response.raise_for_status()  # raises HTTPError if bad response
+        response.raise_for_status()  
         cat_fact = response.json().get('fact', 'No cat fact available.')
     except requests.RequestException:
         cat_fact = "Could not fetch cat fact at this time."
 
-    # Prepare response data
     data = OrderedDict([
         ("status", "success"),
         ("user", {
